@@ -33,8 +33,8 @@
   "scripts": {
     "test": "jest --watchAll",
     "prepare": "husky install",
-    "sassing": "sass styles/sass/styles.scss styles/sass/styles.css  --watch",
-    "sassing-deploy": "sass styles/sass/styles.scss styles/sass/styles.css"
+    "sassing": "sass styles/sass/styles.scss styles/css/styles.css  --watch",
+    "sassing-deploy": "sass styles/sass/styles.scss styles/css/styles.css"
   },
   "repository": {
     "type": "git",
