@@ -1,0 +1,9 @@
+@use "main-colors" as *;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: $main-background;
+}
