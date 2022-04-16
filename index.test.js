@@ -18,3 +18,18 @@ describe("Given invertState function", () => {
     });
   });
 });
+
+describe("Given countNeighbours function", () => {
+  describe("When it receives the array [false, true, false]", () => {
+    test("Then it should return the array [1, 0, 1]", () => {
+      const neighboursArray = [false, true, false];
+      const expectedNeighboursCountArray = [1, 0, 1];
+
+      const countedNeighboursArray = countNeighbours(neighboursArray);
+
+      expect(countedNeighboursArray).toEqual(
+        expect.arrayContaining(expectedNeighboursCountArray)
+      );
+    });
+  });
+});
