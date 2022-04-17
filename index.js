@@ -145,3 +145,22 @@ const intervalID = () => {
 };
 intervalID();
 clearInterval(intervalID);
+gameManager();
+const htmlGridDrawer = () => {
+  const cellsDomGrid = document.querySelector(".cells-container");
+  for (let actualRow = 0; actualRow < cellsUniverse.length; actualRow++) {
+    const divRow = document.createElement("div");
+    divRow.className = "cells-container__rows";
+    cellsDomGrid.appendChild(divRow);
+    for (let actualCol = 0; actualCol < cellsUniverse[0].length; actualCol++) {
+      const divCol = document.createElement("div");
+      if (cellsUniverse[actualRow][actualCol].status === "alive") {
+        divCol.className = "cells-container__cols cells-container__cols--alive";
+      }
+      divCol.className = "cells-container__cols cells-container__cols--dead";
+      divRow.appendChild(divCol);
+    }
+  }
+};
+
+htmlGridDrawer();
