@@ -33,3 +33,4 @@ const cellsGridMaker = (totalX, totalY) => {
 };
 
 const cellsUniverse = cellsGridMaker(3, 3);
+console.table(cellsUniverse);
