@@ -81,7 +81,6 @@ const aliveNeighboursCounter = (cellsArray) => {
   }
 };
 aliveNeighboursCounter(cellsUniverse);
-console.table(cellsUniverse);
 
 const nextGenerationMaker = (cellsArray) => {
   for (let nextGenRows = 0; nextGenRows < cellsArray.length; nextGenRows++) {
@@ -108,8 +107,15 @@ const nextGenerationMaker = (cellsArray) => {
     }
   }
 };
+
+const resetNeighboursCount = (cellsArray) => {
+  for (let actualRow = 0; actualRow < cellsArray.length; actualRow++) {
+    for (let actualCol = 0; actualCol < cellsArray[0].length; actualCol++)
+      cellsUniverse[actualRow][actualCol].aliveNeighbours = 0;
+  }
+};
+
 nextGenerationMaker(cellsUniverse);
-console.table(cellsUniverse);
+resetNeighboursCount(cellsUniverse);
 aliveNeighboursCounter(cellsUniverse);
 nextGenerationMaker(cellsUniverse);
-console.table(cellsUniverse);
