@@ -115,7 +115,33 @@ const resetNeighboursCount = (cellsArray) => {
   }
 };
 
-nextGenerationMaker(cellsUniverse);
-resetNeighboursCount(cellsUniverse);
-aliveNeighboursCounter(cellsUniverse);
-nextGenerationMaker(cellsUniverse);
+const allDeadChecker = () => {
+  let allCellsDead = false;
+  for (let gameRow = 0; gameRow < cellsUniverse.length; gameRow++) {
+    const foundAliveCell = cellsUniverse.find(
+      (cell) => cell.status === "alive"
+    );
+    if (typeof foundAliveCell === "undefined") {
+      allCellsDead = true;
+    }
+  }
+  return allCellsDead;
+};
+
+const gameManager = () => {
+  aliveNeighboursCounter(cellsUniverse);
+  nextGenerationMaker(cellsUniverse);
+  resetNeighboursCount(cellsUniverse);
+};
+
+const gameLooper = () => {
+  while (allDeadChecker === false) {
+    gameManager();
+  }
+};
+
+const intervalID = () => {
+  setInterval(gameLooper, 500);
+};
+intervalID();
+clearInterval(intervalID);
