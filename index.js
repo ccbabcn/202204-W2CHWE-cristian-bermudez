@@ -12,8 +12,8 @@ class Cell {
 }
 
 const randomAlive = () => {
-  const isAlive = Math.floor(Math.random() * 2);
-  if (isAlive === 1) {
+  const isAlive = Math.floor(Math.random() * 5);
+  if (isAlive > 2) {
     return "alive";
   }
   return "dead";
@@ -32,9 +32,17 @@ const cellsGridMaker = (totalX, totalY) => {
   return cellsGrid;
 };
 
-const cellsUniverse = cellsGridMaker(3, 3);
+const cellsUniverse = cellsGridMaker(20, 20);
+
+const resetNeighboursCount = (cellsArray) => {
+  for (let actualRow = 0; actualRow < cellsArray.length; actualRow++) {
+    for (let actualCol = 0; actualCol < cellsArray[0].length; actualCol++)
+      cellsUniverse[actualRow][actualCol].aliveNeighbours = 0;
+  }
+};
 
 const aliveNeighboursCounter = (cellsArray) => {
+  resetNeighboursCount(cellsUniverse);
   for (let actualRow = 0; actualRow < cellsArray.length; actualRow++) {
     for (let actualCol = 0; actualCol < cellsArray[0].length; actualCol++) {
       if (typeof cellsArray[actualRow - 1] !== "undefined") {
@@ -108,59 +116,40 @@ const nextGenerationMaker = (cellsArray) => {
   }
 };
 
-const resetNeighboursCount = (cellsArray) => {
-  for (let actualRow = 0; actualRow < cellsArray.length; actualRow++) {
-    for (let actualCol = 0; actualCol < cellsArray[0].length; actualCol++)
-      cellsUniverse[actualRow][actualCol].aliveNeighbours = 0;
-  }
-};
-
-const allDeadChecker = () => {
-  let allCellsDead = false;
-  for (let gameRow = 0; gameRow < cellsUniverse.length; gameRow++) {
-    const foundAliveCell = cellsUniverse.find(
-      (cell) => cell.status === "alive"
-    );
-    if (typeof foundAliveCell === "undefined") {
-      allCellsDead = true;
-    }
-  }
-  return allCellsDead;
-};
-
-const gameManager = () => {
-  aliveNeighboursCounter(cellsUniverse);
-  nextGenerationMaker(cellsUniverse);
-  resetNeighboursCount(cellsUniverse);
-};
-
-const gameLooper = () => {
-  while (allDeadChecker === false) {
-    gameManager();
-  }
-};
-
-const intervalID = () => {
-  setInterval(gameLooper, 500);
-};
-intervalID();
-clearInterval(intervalID);
-gameManager();
-const htmlGridDrawer = () => {
+const htmlGridDrawer = (cellsArray) => {
   const cellsDomGrid = document.querySelector(".cells-container");
-  for (let actualRow = 0; actualRow < cellsUniverse.length; actualRow++) {
+  cellsDomGrid.innerHTML = "";
+
+  for (let actualRow = 0; actualRow < cellsArray.length; actualRow++) {
     const divRow = document.createElement("div");
     divRow.className = "cells-container__rows";
     cellsDomGrid.appendChild(divRow);
-    for (let actualCol = 0; actualCol < cellsUniverse[0].length; actualCol++) {
+    for (let actualCol = 0; actualCol < cellsArray[0].length; actualCol++) {
       const divCol = document.createElement("div");
-      if (cellsUniverse[actualRow][actualCol].status === "alive") {
-        divCol.className = "cells-container__cols cells-container__cols--alive";
+
+      if (cellsArray[actualRow][actualCol].status === "alive") {
+        divCol.setAttribute(
+          "class",
+          "cells-container__cols cells-container__cols--alive"
+        );
       }
-      divCol.className = "cells-container__cols cells-container__cols--dead";
+      if (cellsArray[actualRow][actualCol].status === "dead") {
+        divCol.setAttribute(
+          "class",
+          "cells-container__cols cells-container__cols--dead"
+        );
+      }
       divRow.appendChild(divCol);
     }
   }
 };
 
-htmlGridDrawer();
+function gameLooper() {
+  htmlGridDrawer(cellsUniverse);
+  aliveNeighboursCounter(cellsUniverse);
+  nextGenerationMaker(cellsUniverse);
+
+  setTimeout(gameLooper, 500);
+}
+
+gameLooper();
