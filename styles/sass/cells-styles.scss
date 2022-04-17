@@ -1,0 +1,50 @@
+@use "main-colors" as *;
+.cells-container {
+  padding: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  min-width: 350px;
+
+  &__rows {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__cols {
+    width: 14px;
+    height: 14px;
+
+    flex: 1;
+
+    &--alive {
+      background: $light-blue;
+    }
+    &--dead {
+      background: $main-background;
+    }
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .cells-container {
+    max-width: 100%;
+
+    &__cols {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .cells-container {
+    max-width: 100%;
+
+    &__cols {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}

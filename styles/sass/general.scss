@@ -1,0 +1,11 @@
+@use "main-colors" as *;
+@import url("https://fonts.googleapis.com/css2?family=Akshar&family=Overpass:wght@400;700&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Akshar", "Overpass", sans-serif;
+  background: $main-background;
+  margin: 0;
+}
