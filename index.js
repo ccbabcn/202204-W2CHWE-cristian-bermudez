@@ -32,7 +32,7 @@ const cellsGridMaker = (totalX, totalY) => {
   return cellsGrid;
 };
 
-const cellsUniverse = cellsGridMaker(20, 20);
+const cellsUniverse = cellsGridMaker(25, 25);
 
 const resetNeighboursCount = (cellsArray) => {
   for (let actualRow = 0; actualRow < cellsArray.length; actualRow++) {
