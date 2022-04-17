@@ -33,7 +33,6 @@ const cellsGridMaker = (totalX, totalY) => {
 };
 
 const cellsUniverse = cellsGridMaker(3, 3);
-console.table(cellsUniverse);
 
 const aliveNeighboursCounter = (cellsArray) => {
   for (let actualRow = 0; actualRow < cellsArray.length; actualRow++) {
@@ -82,4 +81,35 @@ const aliveNeighboursCounter = (cellsArray) => {
   }
 };
 aliveNeighboursCounter(cellsUniverse);
+console.table(cellsUniverse);
+
+const nextGenerationMaker = (cellsArray) => {
+  for (let nextGenRows = 0; nextGenRows < cellsArray.length; nextGenRows++) {
+    for (
+      let nextGenCols = 0;
+      nextGenCols < cellsArray[0].length;
+      nextGenCols++
+    ) {
+      if (cellsArray[nextGenRows][nextGenCols].status === "alive") {
+        if (
+          cellsArray[nextGenRows][nextGenCols].aliveNeighbours === 2 ||
+          cellsArray[nextGenRows][nextGenCols].aliveNeighbours === 3
+        ) {
+          cellsUniverse[nextGenRows][nextGenCols].status = "alive";
+        } else {
+          cellsUniverse[nextGenRows][nextGenCols].status = "dead";
+        }
+      }
+      if (cellsArray[nextGenRows][nextGenCols].status === "dead") {
+        if (cellsArray[nextGenRows][nextGenCols].aliveNeighbours === 3) {
+          cellsUniverse[nextGenRows][nextGenCols].status = "alive";
+        }
+      }
+    }
+  }
+};
+nextGenerationMaker(cellsUniverse);
+console.table(cellsUniverse);
+aliveNeighboursCounter(cellsUniverse);
+nextGenerationMaker(cellsUniverse);
 console.table(cellsUniverse);
